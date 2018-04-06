@@ -14,22 +14,29 @@ namespace LearningInheritancePROJECT
     public partial class Form1 : Form
     {
         Worker[] workers = new Worker[4];
-        Queen queen = new Queen();
+        Queen queen;
+
         public Form1()
         {
             InitializeComponent();
-            workers[0] = new Worker (new string[] { "Zbieranie nektaru", "Wytwarzanie miodu" });
-            workers[1] = new Worker (new string[] { "Pielęgnacja jaj", "Nauczanie pszczółek" });
-            workers[2] = new Worker (new string[] { "Utrzymanie ula", "Patrol z żądłami" });
-            workers[3] = new Worker (new string[] { "Zbieranie nektaru", "Wytwarzanie miodu", "Pielęgnacja jaj", "Nauczanie pszczółek", "Utrzymanie ula", "Patrol z żądłami" });
-            queen = new Queen();
-
+            jobList.SelectedIndex = 0;
+            workers[0] = new Worker (new string[] { "Nauczanie pszczółek", "Pielęgnacja jaj" });
+            workers[1] = new Worker (new string[] { "Utrzymalnie ula", "Wytwarzanie miodu" });
+            workers[2] = new Worker (new string[] { "Zbieranie nektaru", "Patrol z żądłami" });
+            workers[3] = new Worker (new string[] { "Nauczanie pszczółek", "Pielęgnacja jaj", "Utrzymanie ula", "Wytwarzanie miodu", "Zbieranie nektaru", "Patrol z żadłami" });
+            queen = new Queen(workers);
+            
         }
 
-        private void AssignWork(jobList.Items, numericUpDown1.Value);
-        private void button2_Click(object sender, EventArgs e)
+
+        private void button2_Click(object sender, EventArgs e) //asignwork
         {
-            
+            queen.AssignWork(jobList.Text, (int) numericUpDown1.Value);
+        }
+
+        private void button1_Click(object sender, EventArgs e) //workshift
+        {
+            textBox1.Text = queen.WorkTheNextShift();
         }
     }
 }
