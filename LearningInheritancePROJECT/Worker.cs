@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace LearningInheritancePROJECT
 {
-    public class Worker
+    public class Worker: Bee
     {
-        public Worker (string[] jobsICanDo)
+        public Worker (string[] jobsICanDo, double weightMg): base(weightMg) // So we got constructor with string array which containt what kind of job our bee worker is able to do.
         {
             this.jobsICanDo = jobsICanDo;
         }
-
-        private int shiftsToWork;
+        const double honeyConsumptionPerShift = .65; // we add const honeyConsumption;
+        private int shiftsToWork; //We use encapsulation, to let our program work properly.
         private int shiftsWorked;
         private string currentJob = "";
         public string CurrentJob
@@ -35,7 +35,7 @@ namespace LearningInheritancePROJECT
         
 
         private string[] jobsICanDo;
-        public bool DoThisJob(string job, int shiftsToWork)
+        public bool DoThisJob(string job, int shiftsToWork) //So if our job match to workers job possibilities and worker is not working currently it will assign new work to him/her
         {
             for (int i = 0; i < jobsICanDo.Length; i++)
             {
@@ -48,7 +48,7 @@ namespace LearningInheritancePROJECT
             }
             return false;
         }
-        public bool DidYouFinish()
+        public bool DidYouFinish() //If worker bee finished her job it will return true, if not it will rise shiftsWorked and returns false
         {
             if (ShiftsLeft == 0)
             {
@@ -60,6 +60,12 @@ namespace LearningInheritancePROJECT
             else
                 shiftsWorked++;
                 return false;
+        }
+        public override double HoneyConsumptionRate()
+        {
+            double consumption = base.HoneyConsumptionRate();
+            consumption += shiftsWorked * honeyConsumptionPerShift;
+            return consumption;
         }
 
     }
